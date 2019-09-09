@@ -39,6 +39,9 @@ namespace CancelTextToSpeechSample
 
             async void HandleSpeakButtonClicked(object sender, EventArgs e)
             {
+                if (_speakButtonCancellationTokenSource?.IsCancellationRequested is false)
+                    _speakButtonCancellationTokenSource.Cancel();
+
                 _speakButtonCancellationTokenSource = new CancellationTokenSource();
                 await Xamarin.Essentials.TextToSpeech.SpeakAsync(_spokenText, _speakButtonCancellationTokenSource.Token);
             }
